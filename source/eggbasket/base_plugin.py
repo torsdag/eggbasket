@@ -44,8 +44,20 @@ class BasePlugin(ABC):
 
     @property
     def licenses(self) -> typing.Sequence[License]:
+        class UniqueLicense(License):
+            def __eq__(self, other):
+                return (
+                    self.host == other.host and
+                    self.port == other.port
+                )            
+
+            def __hash__(self):
+                return (
+                    hash((self.host, self.port))
+                )
+
         return (
-            set(self.clients)
+            set([UniqueLicense(c.host, c.port, c.local_port, c.user) for c in self.clients])
         )
 
     def decrement(self, data):

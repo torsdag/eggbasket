@@ -17,6 +17,7 @@ from dataclasses import (
 class License:
     host: str
     port: int
+    local_port: int
     user: str = field(
         default='unknown'
     )
@@ -24,12 +25,13 @@ class License:
     def __eq__(self, other):
         return (
             self.host == other.host and
-            self.port == other.port
+            self.port == other.port and
+            self.local_port == other.local_port
         )
 
     def __hash__(self):
         return (
-            hash((self.host, self.port))
+            hash((self.host, self.port, self.local_port))
         )
 
 
@@ -37,9 +39,9 @@ class BaseAddon:
     def __init__(self, license):
         self.license = license
 
-    def _license_entry(self, host: str, port:int) -> License:
+    def _license_entry(self, host: str, port:int, local_port:int) -> License:
         return License(
-            host, port
+            host, port, local_port
         )
 
     def clientconnect(self, layer: mitmproxy.proxy.protocol.Layer):
@@ -50,7 +52,9 @@ class BaseAddon:
 
         self.license.increment(
             self._license_entry(
-                layer.ctx.client_conn.address[0], layer.server_conn.address[1]
+                layer.ctx.client_conn.address[0], 
+                layer.server_conn.address[1], 
+                layer.ctx.client_conn.address[1]
             )
         )
 
@@ -61,7 +65,9 @@ class BaseAddon:
 
         self.license.decrement(
             self._license_entry(
-                layer.ctx.client_conn.address[0], layer.server_conn.address[1]
+                layer.ctx.client_conn.address[0], 
+                layer.server_conn.address[1], 
+                layer.ctx.client_conn.address[1]
             )
         )
 
@@ -76,7 +82,7 @@ class BaseAddon:
 
         self.license.decrement(
             self._license_entry(
-                flow.client_conn.address[0], flow.server_conn.address[1]
+                host, flow.server_conn.address[1], local_port
             )
         )
     

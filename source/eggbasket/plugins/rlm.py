@@ -55,7 +55,26 @@ class RLM(BasePlugin):
         
     @property
     def addons(self) -> [BaseAddon]:
+        port_isv = (
+            self._port_isv
+        )
+
         class RLMAddon(BaseAddon):
+            def clientconnect(self, layer: mitmproxy.proxy.protocol.Layer):
+                """
+                A client has disconnected from mitmproxy.
+                """
+                if layer.server_conn.address[1] == port_isv:
+                    super().clientconnect(layer)
+
+            def clientdisconnect(self, layer: mitmproxy.proxy.protocol.Layer):
+                """
+                A client has disconnected from mitmproxy.
+                """
+
+                if layer.server_conn.address[1] == port_isv:
+                    super().clientdisconnect(layer)
+
             def tcp_message(self, flow: mitmproxy.tcp.TCPFlow):
                 raw_data = (
                     flow.messages[-1]
