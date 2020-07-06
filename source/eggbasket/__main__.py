@@ -1,6 +1,5 @@
 import sys
 import time
-import mock
 import typing
 import logging
 import argparse
