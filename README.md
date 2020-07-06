@@ -1,7 +1,7 @@
 eggbasket
 =========
 
-Man in the middle license proxy. Written for giggles and allows you to setup a proxy counting license check outs per user / host and exporting them through prometheus. Currently only works with RLM license servers but should / could be made to work with other license servers that keeps an active connection for each checkout. The idea falls to pices if you have multiple licenses being served from the same license server.
+Man in the middle license proxy. Written for giggles and allows you to setup a proxy counting license check outs per user / host and exporting them through prometheus. Currently only works with RLM license servers but should / could be made to work with other license servers that keep an active connection for each checkout. The idea falls to pieces if you have multiple licenses being served from the same license server.
 
 Could be pretty neat to have a "generic" layer to control who can checkout licenses based on user / hostname allowing for limits based on departments etc..
 
@@ -34,7 +34,7 @@ running
 =======
 
 ```
-python -m eggbsket -c config.json [ -p 8000 ] [ -v ]
+python -m eggbasket -c config.json [ -p 8000 ] [ -v ]
 ```
 
 Arguments:
