@@ -1,0 +1,23 @@
+{
+    "licenses":
+    [
+        {
+            "plugin": "RLM",
+            "settings":{
+                "name": "nuke",
+                "port": 4101,
+                "port_isv": 43703,
+                "hostname": "license-foundry"
+            }
+        },
+        {
+            "plugin": "RLM",
+            "settings":{
+                "name": "arnold",
+                "port": 5059,
+                "port_isv": 47980,
+                "hostname": "license-autodeks"
+            }
+        }
+    ]
+}
