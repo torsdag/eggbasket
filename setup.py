@@ -30,7 +30,7 @@ setup(
     python_requires=">3.6",
     entry_points={"console_scripts": ["eggbasket=eggbasket.__main__:main",],},
     install_requires=[
-        "mitmproxy==5.1.1",
+        "mitmproxy==7.0.3",
         "prometheus-client==0.8.0",
         "dataclasses>=0.7",
     ],
