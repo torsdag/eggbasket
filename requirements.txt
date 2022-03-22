@@ -14,7 +14,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.3
 kaitaistruct==0.8
 MarkupSafe==1.1.1
-mitmproxy==7.0.3
+mitmproxy==8.0.0
 passlib==1.7.2
 prometheus-client==0.8.0
 protobuf==3.11.3
